@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>$RUDOLPH - Light the Way to the Moon</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Mountains+of+Christmas:wght@400;700&family=Orbitron:wght@400;700;900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            overflow-x: hidden;
+            color: #fff;
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #0a1628 0%, #1a0a0f 50%, #0d1b2a 100%);
+            z-index: -2;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 50% 50%, rgba(255, 0, 0, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(0, 255, 100, 0.05) 0%, transparent 30%);
+            z-index: -1;
+            animation: glowPulse 4s ease-in-out infinite;
+        }
+
+        @keyframes glowPulse {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+
+        .snowflakes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .snowflake {
+            position: absolute;
+            top: -10px;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1em;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+            }
+        }
+        
+        .static-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100"><defs><filter id="noise"><feTurbulence baseFrequency="0.9" numOctaves="1" result="noise"/><feColorMatrix in="noise" type="saturate" values="0"/></filter></defs><rect width="100%" height="100%" filter="url(%23noise)" opacity="0.03"/></svg>');
+            pointer-events: none;
+            z-index: 2;
+        }
+        
+        .glitch-text {
+            font-family: 'Mountains of Christmas', cursive;
+            font-weight: 700;
+            font-size: 5rem;
+            text-align: center;
+            color: #ff0000;
+            text-shadow: 
+                3px 3px 0px #00ff00,
+                -3px -3px 0px #ffffff,
+                0 0 30px #ff0000;
+            animation: christmasGlitch 1s infinite;
+            margin: 2rem 0;
+            z-index: 2;
+            position: relative;
+        }
+        
+        @keyframes christmasGlitch {
+            0%, 100% { transform: translate(0); filter: hue-rotate(0deg); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(2px, -2px); }
+            60% { transform: translate(-2px, -2px); filter: hue-rotate(10deg); }
+            80% { transform: translate(2px, 2px); }
+        }
+        
+        .hero-section {
+            position: relative;
+            flex-shrink: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 2rem;
+            z-index: 2;
+            min-height: 60vh;
+        }
+        
+        .rudolph-hero {
+            width: 350px;
+            height: 350px;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+            animation: floatSpin 3s ease-in-out infinite;
+            margin: 2rem 0;
+            filter: drop-shadow(0 0 40px rgba(255, 0, 0, 0.8)) drop-shadow(0 0 20px rgba(255, 255, 255, 0.5));
+            background-image: url('https://raw.githubusercontent.com/Splendour921/Rudolf_Image/main/suit_dear.jpg');
+        }
+        
+        @keyframes floatSpin {
+            0%, 100% { transform: translateY(0px) rotate(-5deg); }
+            50% { transform: translateY(-30px) rotate(5deg); }
+        }
+        
+        .subtitle {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.8rem;
+            color: #00ff88;
+            text-shadow: 0 0 20px #00ff88, 2px 2px 4px #000;
+            margin-bottom: 1.5rem;
+            animation: neonPulse 2s infinite;
+            text-align: center;
+        }
+
+        .contract-address {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.2rem;
+            color: #ffdd00;
+            text-shadow: 0 0 15px #ffdd00, 2px 2px 4px #000;
+            margin-bottom: 2rem;
+            animation: neonPulse 2s infinite 0.5s;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 15px 25px;
+            border-radius: 15px;
+            border: 2px solid #ff0000;
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.5);
+        }
+        
+        @keyframes neonPulse {
+            0%, 100% { opacity: 1; text-shadow: 0 0 20px currentColor, 2px 2px 4px #000; }
+            50% { opacity: 0.8; text-shadow: 0 0 30px currentColor, 2px 2px 4px #000; }
+        }
+        
+        .content-section {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 3rem;
+            background: linear-gradient(135deg, rgba(10, 20, 40, 0.9), rgba(20, 10, 20, 0.9));
+            border-radius: 30px;
+            border: 3px solid #ff0000;
+            box-shadow: 0 0 60px rgba(255, 0, 0, 0.6), inset 0 0 30px rgba(0, 255, 100, 0.1);
+            position: relative;
+            z-index: 2;
+            flex-grow: 1;
+            margin-bottom: 2rem;
+        }
+
+        .content-section::before {
+            content: '🎄';
+            position: absolute;
+            top: -30px;
+            left: 20px;
+            font-size: 3rem;
+            animation: treeRotate 3s infinite;
+        }
+
+        .content-section::after {
+            content: '🎄';
+            position: absolute;
+            top: -30px;
+            right: 20px;
+            font-size: 3rem;
+            animation: treeRotate 3s infinite 1.5s;
+        }
+
+        @keyframes treeRotate {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(15deg); }
+        }
+        
+        .description {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            margin-bottom: 2.5rem;
+            text-align: center;
+            color: #fff;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+        }
+
+        .stats-highlight {
+            background: linear-gradient(90deg, rgba(255, 0, 0, 0.3), rgba(0, 255, 100, 0.3));
+            padding: 1.5rem;
+            margin: 2rem 0;
+            border-radius: 15px;
+            border: 2px solid #ffdd00;
+            font-size: 1.3rem;
+            text-align: center;
+            animation: statsGlow 2s infinite;
+            font-weight: bold;
+        }
+
+        @keyframes statsGlow {
+            0%, 100% { box-shadow: 0 0 20px rgba(255, 221, 0, 0.5); }
+            50% { box-shadow: 0 0 40px rgba(255, 221, 0, 0.9); }
+        }
+        
+        .cta-button {
+            display: block;
+            width: 400px;
+            padding: 25px 50px;
+            margin: 2.5rem auto;
+            background: linear-gradient(45deg, #ff0000, #00ff00, #ff0000);
+            background-size: 200% 200%;
+            border: none;
+            border-radius: 50px;
+            font-family: 'Mountains of Christmas', cursive;
+            font-size: 2rem;
+            font-weight: bold;
+            color: #fff;
+            cursor: pointer;
+            animation: buttonChristmas 3s ease infinite, buttonFloat 2s ease-in-out infinite;
+            box-shadow: 0 0 40px rgba(255, 0, 0, 0.8);
+            position: relative;
+            z-index: 3;
+            text-decoration: none;
+            text-align: center;
+            transition: transform 0.2s ease;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+            animation: insanePulse 0.15s infinite;
+        }
+        
+        @keyframes buttonChristmas {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        @keyframes buttonFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        @keyframes insanePulse {
+            0%, 100% { transform: scale(1.05) rotate(0deg); }
+            25% { transform: scale(1.1) rotate(2deg); }
+            50% { transform: scale(1) rotate(-2deg); }
+            75% { transform: scale(1.08) rotate(1deg); }
+        }
+        
+        .footer {
+            text-align: center;
+            padding: 2rem;
+            font-size: 0.9rem;
+            color: #888;
+            background: rgba(0, 0, 0, 0.9);
+            flex-shrink: 0;
+            margin-top: auto;
+            border-top: 2px solid #ff0000;
+        }
+        
+        .crypto-ticker {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            color: #00ff88;
+            font-family: 'Orbitron', monospace;
+            font-size: 0.9rem;
+            opacity: 0;
+            animation: tickerFlicker 4s infinite;
+            z-index: 5;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            border-radius: 10px;
+            border: 1px solid #00ff88;
+        }
+        
+        @keyframes tickerFlicker {
+            0%, 85%, 100% { opacity: 0; }
+            90%, 95% { opacity: 1; }
+        }
+
+        #initialGate {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(135deg, rgba(10, 0, 20, 0.7), rgba(50, 0, 0, 0.7)),
+                        url('https://raw.githubusercontent.com/Splendour921/Rudolf_Image/main/suit_dear.jpg') center/cover no-repeat;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            color: #fff;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.9);
+        }
+
+        #initialGate.hidden {
+            animation: fadeOut 0.5s forwards;
+            pointer-events: none;
+        }
+
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+
+        #initialGate h1 {
+            font-family: 'Mountains of Christmas', cursive;
+            font-size: 4rem;
+            color: #ff0000;
+            margin-bottom: 40px;
+            text-shadow: 3px 3px 0px #00ff00, -3px -3px 0px #ffffff, 0 0 40px #ff0000;
+            animation: christmasGlitch 1s infinite;
+        }
+
+        #initialGate p {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.5rem;
+            margin-bottom: 40px;
+            text-align: center;
+            padding: 0 20px;
+            max-width: 600px;
+        }
+
+        #initialGate button {
+            background: linear-gradient(45deg, #ff0000, #00ff00);
+            font-family: 'Mountains of Christmas', cursive;
+            font-size: 2rem;
+            padding: 20px 50px;
+            border: 3px solid #fff;
+            border-radius: 50px;
+            color: #fff;
+            cursor: pointer;
+            box-shadow: 0 0 40px rgba(255, 0, 0, 0.9);
+            animation: buttonChristmas 2s linear infinite;
+            transition: transform 0.2s ease;
+        }
+
+        #initialGate button:hover {
+            animation: insanePulse 0.1s infinite;
+            transform: scale(1.1);
+        }
+
+        /* Mobile Responsive Styles */
+        @media (max-width: 768px) {
+            .glitch-text {
+                font-size: 2.5rem;
+                margin: 1rem 0;
+                padding: 0 1rem;
+            }
+
+            .rudolph-hero {
+                width: 200px;
+                height: 200px;
+                margin: 1rem 0;
+            }
+
+            .subtitle {
+                font-size: 1.1rem;
+                margin-bottom: 1rem;
+                padding: 0 1rem;
+            }
+
+            .contract-address {
+                font-size: 0.8rem;
+                margin-bottom: 1rem;
+                padding: 10px 15px;
+                word-break: break-all;
+            }
+
+            .content-section {
+                padding: 1.5rem;
+                margin: 1rem;
+                border-radius: 20px;
+            }
+
+            .content-section::before,
+            .content-section::after {
+                font-size: 2rem;
+                top: -20px;
+            }
+
+            .description {
+                font-size: 0.95rem;
+                line-height: 1.6;
+                margin-bottom: 1.5rem;
+            }
+
+            .stats-highlight {
+                font-size: 0.95rem;
+                padding: 1rem;
+                margin: 1.5rem 0;
+            }
+
+            .cta-button {
+                width: 90%;
+                max-width: 280px;
+                font-size: 1.3rem;
+                padding: 18px 30px;
+                margin: 1.5rem auto;
+            }
+
+            .footer {
+                padding: 1.5rem 1rem;
+                font-size: 0.8rem;
+            }
+
+            .crypto-ticker {
+                font-size: 0.75rem;
+                padding: 8px;
+                top: 5px;
+                right: 5px;
+            }
+
+            #initialGate h1 {
+                font-size: 2rem;
+                margin-bottom: 20px;
+                padding: 0 1rem;
+            }
+
+            #initialGate p {
+                font-size: 1rem;
+                margin-bottom: 25px;
+                padding: 0 1.5rem;
+            }
+
+            #initialGate button {
+                font-size: 1.3rem;
+                padding: 15px 30px;
+            }
+
+            .hero-section {
+                min-height: 50vh;
+                padding: 1rem;
+            }
+
+            .snowflake {
+                font-size: 0.8em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .glitch-text {
+                font-size: 2rem;
+            }
+
+            .rudolph-hero {
+                width: 180px;
+                height: 180px;
+            }
+
+            .subtitle {
+                font-size: 1rem;
+            }
+
+            .contract-address {
+                font-size: 0.7rem;
+                padding: 8px 12px;
+            }
+
+            .content-section {
+                padding: 1rem;
+                margin: 0.5rem;
+            }
+
+            .description {
+                font-size: 0.9rem;
+            }
+
+            .stats-highlight {
+                font-size: 0.9rem;
+                padding: 0.8rem;
+            }
+
+            .cta-button {
+                font-size: 1.2rem;
+                padding: 15px 25px;
+            }
+
+            #initialGate h1 {
+                font-size: 1.8rem;
+            }
+
+            #initialGate p {
+                font-size: 0.9rem;
+            }
+
+            #initialGate button {
+                font-size: 1.2rem;
+                padding: 12px 25px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="initialGate">
+        <h1>🎅 ENTER THE SLEIGH 🎅</h1>
+        <p>The nose glows brightest for those who believe. Are you ready to ride with Rudolph to the moon?</p>
+        <button onclick="acceptGate()">JOIN THE HERD 🦌</button>
+    </div>
+
+    <div id="mainContent" style="display: none;">
+        <div class="static-overlay"></div>
+        <div class="snowflakes" id="snowflakes"></div>
+        <div class="crypto-ticker">🔴 NOSE STATUS: GLOWING 🔴</div>
+
+        <div class="hero-section">
+            <h1 class="glitch-text">$RUDOLPH</h1>
+            <div class="subtitle">THE RED NOSE THAT LEADS TO GAINS</div>
+            <div class="rudolph-hero" id="rudolphImage"></div>
+            <div class="contract-address">CA: [RUDOLPH CONTRACT ADDRESS]</div>
+        </div>
+        
+        <div class="content-section">
+            <div class="description">
+                This holiday season, let Rudolph guide your portfolio through the snowstorm of the markets. $RUDOLPH shines bright with community spirit, festive vibes, and meme magic strong enough to light up even the darkest crypto winter. Just like Santa's most trusted reindeer, this coin is built to lead the pack, spreading joy, laughter, and gains all December long (and beyond). Join the sleigh ride early—because the nose that glows is the one that shows the way to the moon!
+            </div>
+            
+            <div class="description">
+                When it comes to holiday cheer, no other coin comes close—$RUDOLPH is leading the sleigh as the main Christmas crypto. Forget the copycats and the Grinches; this is the coin that carries Santa's bag of gains straight to the community. With its glowing red nose lighting up the charts, $RUDOLPH isn't just another seasonal token—it's the centerpiece of every crypto holder's holiday celebration. This Christmas, all roads (and sleigh tracks) point to $RUDOLPH. 🎄✨🚀
+            </div>
+
+            <div class="stats-highlight">
+                With a previous all time high of 6 million and gate.io owning 4%, $RUDOLPH is primed to be the number 1 holiday coin.
+            </div>
+            
+            <a href="#" class="cta-button" onclick="stopBackgroundMusic(); return true;">
+                🦌 RIDE THE SLEIGH 🦌
+            </a>
+        </div>
+        
+        <div class="footer">
+            <div>RUDOLPH CRYPTO SLEIGH © 2025 | Leading the way through every crypto winter</div>
+            <div style="margin-top: 1rem; color: #ff0000; font-style: italic;">"The nose knows the way to the moon" 🔴🚀</div>
+        </div>
+    </div>
+
+    <audio id="backgroundMusic" loop>
+        <source src="" type="audio/mpeg">
+    </audio>
+    
+    <script>
+        let audioContext;
+        const backgroundMusic = document.getElementById('backgroundMusic');
+        const rudolphImages = [
+            'https://raw.githubusercontent.com/Splendour921/Rudolf_Image/main/suit_dear.jpg',
+            'https://raw.githubusercontent.com/Splendour921/Rudolf_Image/main/driving_dear.jpg',
+            'https://raw.githubusercontent.com/Splendour921/Rudolf_Image/main/red_hat_dear.jpg',
+            'https://raw.githubusercontent.com/Splendour921/Rudolf_Image/main/singing_dear.jpg'
+        ];
+        let currentImageIndex = 0;
+
+        function stopBackgroundMusic() {
+            if (backgroundMusic) {
+                backgroundMusic.pause();
+                backgroundMusic.currentTime = 0;
+            }
+        }
+
+        function createSnowflakes() {
+            const container = document.getElementById('snowflakes');
+            const snowflakeCount = window.innerWidth < 768 ? 30 : 50;
+            for (let i = 0; i < snowflakeCount; i++) {
+                const snowflake = document.createElement('div');
+                snowflake.classList.add('snowflake');
+                snowflake.textContent = Math.random() > 0.5 ? '❄' : '⛄';
+                snowflake.style.left = Math.random() * 100 + '%';
+                snowflake.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                snowflake.style.animationDelay = Math.random() * 5 + 's';
+                snowflake.style.opacity = Math.random();
+                container.appendChild(snowflake);
+            }
+        }
+
+        function cycleRudolphImages() {
+            const rudolphHero = document.getElementById('rudolphImage');
+            if (rudolphImages.length > 0) {
+                currentImageIndex = (currentImageIndex + 1) % rudolphImages.length;
+                rudolphHero.style.backgroundImage = `url('${rudolphImages[currentImageIndex]}')`;
+            }
+        }
+
+        function acceptGate() {
+            const initialGate = document.getElementById('initialGate');
+            const mainContent = document.getElementById('mainContent');
+
+            initialGate.classList.add('hidden');
+            
+            setTimeout(() => {
+                initialGate.style.display = 'none';
+                mainContent.style.display = 'block';
+
+                if (backgroundMusic) {
+                    backgroundMusic.volume = 0.4;
+                    backgroundMusic.currentTime = 19;
+                    backgroundMusic.play().catch(error => {
+                        console.log("Background music autoplay prevented:", error);
+                    });
+                }
+
+                if (!audioContext) {
+                    audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                }
+                if (audioContext.state === 'suspended') {
+                    audioContext.resume();
+                }
+
+                createSnowflakes();
+                setInterval(cycleRudolphImages, 3000);
+            }, 500);
+        }
+    </script>
+</body>
+</html>
