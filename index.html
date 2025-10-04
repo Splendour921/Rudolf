@@ -610,6 +610,13 @@
             }
         }
 
+        function stopBackgroundMusic() {
+            if (backgroundMusic) {
+                backgroundMusic.pause();
+                backgroundMusic.currentTime = 0;
+            }
+        }
+
         function acceptGate() {
             const initialGate = document.getElementById('initialGate');
             const mainContent = document.getElementById('mainContent');
